@@ -146,6 +146,9 @@ export const tasksMs = {
     weekly_recurring: "Mingguan Berulang",
     series_generated: "Dijana Dari Siri",
   },
+  scheduler: {
+    note: "Penjanaan tugasan automatik berjalan melalui tickTaskRecurrence semasa senarai tugasan dimuatkan dan cron harian pada 08:00 (vercel.json → /api/cron/task-notifications). Siri yang dibatalkan dan tarikh yang dikecualikan tidak akan dijana semula.",
+  },
   detail: {
     title: "Butiran tugasan",
     info: "Maklumat tugasan",
@@ -181,6 +184,7 @@ export const tasksMs = {
     photoLoadFailed: "Gagal memuatkan foto.",
     prevPhoto: "Sebelum",
     nextPhoto: "Seterusnya",
+    photoCapturedAt: "Ditangkap",
   },
   templates: {
     dailyCleaning: "Pembersihan Harian",
@@ -248,6 +252,7 @@ export const tasksMs = {
       missing_submit_permission: "Anda tiada kebenaran menghantar tugasan",
       shop_access_denied: "Anda tiada akses ke kedai ini",
       admin_cannot_start: "Pentadbir tidak boleh mula tugasan dari skrin staf",
+      overdue_reason_required: "Sebab lewat diperlukan.",
       gps_required: "Pengesahan GPS diperlukan sebelum hantar.",
     },
   },

@@ -128,6 +128,8 @@ export const operationsDashboardZh = {
     change: "变化",
   },
   layout: {
+    todaysAttention: "今日关注",
+    todaysAttentionDesc: "{date} 管理提醒 — 不显示原始打卡记录。",
     operationsOverview: "运营概览",
     todaysOperations: "今日运营",
     asOf: "截至",
@@ -142,5 +144,18 @@ export const operationsDashboardZh = {
     attendanceScore: "出勤得分",
     secondaryAnalytics: "绩效分析",
     secondaryAnalyticsDesc: "周期排名供深入查看 — 非实时运营数据。",
+  },
+  attention: {
+    critical: "严重",
+    warning: "警告",
+    healthy: "正常",
+    absent: "今日缺勤",
+    missingClockOut: "漏打下班卡",
+    overdueTasks: "逾期任务",
+    late: "迟到员工",
+    forgotPunch: "待处理漏打卡申请",
+    pendingTasks: "待完成任务",
+    none: "无",
+    noHealthyShops: "今日暂无完全正常的门店。",
   },
 };

@@ -10,6 +10,7 @@ import { permissionsMs } from "./permissions-ms";
 import { positionsMs } from "./positions-ms";
 import { employeeMs } from "./employee-ms";
 import { notificationsMs } from "./notifications-ms";
+import { dailyReportsMs } from "./daily-reports-ms";
 import { drilldownMs } from "./drilldown-ms";
 
 export const ms: TranslationTree = {
@@ -36,6 +37,8 @@ export const ms: TranslationTree = {
     employees: "Pekerja",
     tasks: "Tugasan",
     operationsCenter: "Hab Operasi",
+    notifications: "Pemberitahuan",
+    dailyReports: "Laporan Harian",
     settings: "Tetapan",
     billing: "Bil",
     helpCenter: "Pusat bantuan",
@@ -70,147 +73,259 @@ export const ms: TranslationTree = {
     addShop: "Tambah kedai",
   },
   landing: {
-    badge: "LW OpsFlow · Platform Operasi Tenaga Kerja Runcit",
-    heroTitle1: "Urus kedai anda dengan lebih jelas.",
-    heroTitle2: "Lihat setiap cawangan, shift dan risiko dalam satu platform.",
-    heroSubtitle:
-      "Lihat setiap cawangan, setiap syif dan setiap risiko — dalam satu tempat.",
-    problemsTitle: "Masalah kehadiran biasa",
-    problemsSubtitle:
-      "Jika ini bunyi seperti lantai kedai anda, anda tidak keseorangan — dan tidak perlu spreadsheet untuk membetulkannya.",
-    featuresTitle: "Dibina untuk operasi runcit berbilang kedai",
-    featuresSubtitle: "Keterlihatan, disiplin & bukti di tapak — bukan sistem gaji lain.",
-    antiBuddyBadge: "Anti buddy punch",
-    pricingTitle: "Harga mudah mengikut skala",
-    pricingSubtitle: "Semua ciri setiap pelan. Bayar mengikut saiz kedai & staf — bukan tier ciri.",
-    popular: "Popular",
-    scenariosTitle: "Dibina untuk senario perniagaan sebenar",
-    scenariosSubtitle: "Platform sama — diselaraskan setiap kedai mengikut cara anda beroperasi.",
-    howItWorksTitle: "Cara ia berfungsi",
-    founderLabel: "Kisah pengasas",
-    founderTitle: "Dibina daripada pengalaman operasi runcit sebenar.",
-    founderBody:
-      "LW OpsFlow bermula di lantai kedai — kejar clock-out hilang, betulkan buddy punch, dan selaraskan kiosk mall dengan spreadsheet. Kami bina OpsFlow Attendance supaya pengurus kurang masa mengesahkan jam dan lebih masa menjalankan perniagaan.",
-    faqTitle: "Soalan lazim",
-    ctaTitle: "Lihat kedai anda dengan jelas — bermula hari ini.",
-    ctaSubtitle: "Percubaan percuma 14 hari. Tiada kad kredit. Semua ciri dari hari pertama.",
-    ctaButton: "Mula Percubaan 14 Hari",
-    trust: {
-      trial: "Percubaan 14 Hari",
-      noCard: "Tiada Kad Kredit",
-      multiShop: "Keterlihatan Berbilang Kedai",
-      gpsQr: "GPS Sesuai Runcit",
-      payroll: "Jadual vs Sebenar",
-      security: "Kawalan Disiplin Staf",
+    hero: {
+      badge: "Platform Kecerdasan Operasi Runcit",
+      titleLine1: "Urus Setiap Cawangan",
+      titleHighlight: "Dengan Data,",
+      titleLine2: "Bukan Tekaan",
+      subtitleLine1:
+        "Lihat kehadiran, penyelesaian tugasan, kebolehpercayaan, disiplin operasi dan prestasi cawangan dalam satu papan pemuka.",
+      subtitlePlain: "Berhenti mengejar staf untuk maklumat.",
+      subtitleHighlight: "Mula fahami perniagaan anda dengan lebih jelas.",
+      ctaStartTrial: "Mula Percubaan Percuma",
+      ctaBookDemo: "Tempah Demo",
+      badge1: "Percubaan percuma 14 hari",
+      badge2: "Tiada kad kredit",
+      badge3: "Sedia untuk pelbagai cawangan",
+      badge4: "Mesra mudah alih",
     },
-    productFeatures: {
-      gpsQr: "Keterlihatan Berbilang Kedai",
-      multiShop: "Penjejakan Disiplin Staf",
-      scheduling: "Pengesahan GPS Runcit",
-      payroll: "Jadual vs Kehadiran Sebenar",
-      security: "Papan Risiko Pengurus",
-      reports: "Laporan Operasi",
-    },
-    pillars: {
-      visibility: {
-        title: "Keterlihatan Berbilang Kedai",
-        desc: "Tahu siapa bekerja di setiap cawangan — tanpa lawat setiap kedai.",
-        b1: "Status langsung setiap kedai",
-        b2: "Paparan staf merentas cawangan",
-        b3: "Satu log masuk syarikat",
-      },
-      discipline: {
-        title: "Penjejakan Disiplin Staf",
-        desc: "Kesan ketibaan lewat, clock out hilang, isu lokasi & corak kehadiran berisiko.",
-        b1: "Amaran lewat & punch hilang",
-        b2: "Pengesanan buddy punch",
-        b3: "Skor kebolehpercayaan staf",
-      },
-      gps: {
-        title: "Pengesahan GPS Sesuai Runcit",
-        desc: "Dibina untuk pusat beli-belah, bangunan tinggi & outlet runcit indoor.",
-        b1: "Mod keyakinan indoor",
-        b2: "Pelbagai titik GPS",
-        b3: "Sandaran bukti foto",
-      },
-      schedule: {
-        title: "Jadual vs Kehadiran Sebenar",
-        desc: "Bandingkan syif dirancang dengan rekod clock-in sebenar di setiap kedai.",
-        b1: "Templat syif setiap kedai",
-        b2: "Kesedaran jadual merentas kedai",
-        b3: "Jam berjadual vs sebenar",
-      },
-      dashboard: {
-        title: "Papan Risiko Pengurus",
-        desc: "Lihat apa perlu perhatian hari ini — bukan hujung bulan.",
-        b1: "Panel risiko hari ini",
-        b2: "Skor kesihatan kedai",
-        b3: "Staf perlu perhatian",
+    problem: {
+      label: "Masalah",
+      heading: "Pekerja Cemerlang Selalu Tidak Disedari",
+      subtitle:
+        "Tanpa rekod prestasi yang jelas, keputusan dibuat berdasarkan ingatan, gerak hati, dan siapa yang paling kelihatan — bukan siapa yang benar-benar menyumbang.",
+      items: {
+        unrecognised: {
+          title: "Pekerja rajin tidak diiktiraf",
+          desc: "Staf berprestasi tinggi dilayan sama seperti staf berprestasi rendah apabila tiada data untuk menunjukkan perbezaan.",
+        },
+        memory: {
+          title: "Pengurus bergantung pada ingatan",
+          desc: "Keputusan semasa penilaian prestasi berdasarkan tanggapan terbaru — bukan tingkah laku konsisten selama berbulan-bulan.",
+        },
+        tooLate: {
+          title: "Masalah cawangan disedari terlalu lewat",
+          desc: "Isu seperti kelewatan berulang atau tugasan terlepas hanya kelihatan selepas menjadi serius.",
+        },
+        subjective: {
+          title: "Penilaian prestasi menjadi subjektif",
+          desc: "Tanpa data, penilaian memihak kepada mereka yang lebih bersuara atau disukai berbanding mereka yang konsisten memberi hasil.",
+        },
+        motivation: {
+          title: "Pekerja cemerlang hilang motivasi",
+          desc: "Apabila usaha tidak kelihatan, pekerja terbaik secara diam-diam kurang bermotivasi. Sistem akhirnya memberi ganjaran kepada tingkah laku yang salah.",
+        },
+        noVisibility: {
+          title: "Tiada keterlihatan merentas cawangan",
+          desc: "Pemilik pelbagai cawangan tidak dapat bandingkan konsistensi, pematuhan atau kebolehpercayaan tanpa melawat secara peribadi.",
+        },
       },
     },
-    problems: {
-      forgetIn: { title: "Staf lupa clock in", desc: "Baru ketahui hujung bulan bila gaji tidak sepadan realiti." },
-      buddy: { title: "Buddy punch pada telefon kongsi", desc: "Satu peranti clock in untuk ramai — jam kelihatan OK, kedai tidak." },
-      gps: { title: "GPS gagal dalam bangunan", desc: "Mall & bangunan tinggi halang lokasi — staf tidak boleh punch, barisan panjang." },
-      manual: { title: "Kejar kehadiran manual", desc: "Kumpulan WhatsApp, spreadsheet, dan “dah clock out?” setiap petang." },
-    },
-    features: {
-      gpsQr: {
-        title: "Punch GPS + QR di tapak",
-        desc: "Staf imbas QR kedai dan sahkan lokasi sebelum clock in/out — tiada log masuk tablet kongsi.",
-        b1: "Pelbagai titik GPS",
-        b2: "Mod keyakinan indoor",
-        b3: "Sandaran bukti foto",
-      },
-      security: {
-        title: "Kawalan keselamatan",
-        desc: "Pusat Keselamatan untuk semakan risiko, pengesahan selfie, kawalan peranti & amaran GPS setiap kedai.",
-        b1: "Barisan semakan risiko",
-        b2: "Pengesahan selfie",
-        b3: "Pengesanan buddy punch",
-      },
-      schedule: {
-        title: "Penjadualan syif",
-        desc: "Jam tetap atau templat syif setiap kedai. Gaji guna panjang syif berjadual, bukan masa awal/lewat tambahan.",
-        b1: "Templat syif",
-        b2: "Hari berbilang syif",
-        b3: "Jadual staf",
-      },
-      payroll: {
-        title: "Jam gaji & laporan",
-        desc: "Jam gaji berjadual (punch awal/lewat tidak naikkan gaji), jam sebenar & laporan CSV gaji.",
-        b1: "Berjadual vs jam sebenar",
-        b2: "KPI lewat & tidak hadir",
-        b3: "Eksport CSV",
-      },
-      multiShop: {
-        title: "Berbilang kedai, satu syarikat",
-        desc: "Setiap cawangan ada GPS, QR & peraturan sendiri — urus semua dari satu log masuk admin.",
-        b1: "Persediaan setiap kedai",
-        b2: "Laporan seluruh syarikat",
-        b3: "Staf ditugaskan mengikut kedai",
+    solution: {
+      label: "Penyelesaian",
+      heading: "Jadikan Prestasi Kelihatan",
+      subtitle:
+        "Setiap modul saling berhubung untuk memberi anda gambaran lengkap tentang prestasi sebenar cawangan dan pekerja anda.",
+      items: {
+        attendance: {
+          title: "Penjejakan Kehadiran",
+          desc: "Clock in/out QR + GPS dengan kawalan anti buddy-punch. Tahu dengan tepat siapa berada di tapak dan bila.",
+        },
+        taskAccountability: {
+          title: "Akauntabiliti Tugasan",
+          desc: "Tugaskan, jejak dan sahkan tugasan harian. Tahu apa yang disiapkan, apa yang terlepas, dan oleh siapa.",
+        },
+        photoVerification: {
+          title: "Pengesahan Foto",
+          desc: "Staf hantar bukti foto untuk penyelesaian tugasan. Penyemak boleh terima, tanda sederhana, atau tolak dengan maklum balas.",
+        },
+        compliance: {
+          title: "Pematuhan Operasi",
+          desc: "Tetapkan senarai semak untuk pembukaan, penutupan dan rutin harian. Jejak sama ada prosedur benar-benar dipatuhi.",
+        },
+        multiShop: {
+          title: "Pemantauan Pelbagai Kedai",
+          desc: "Bandingkan kesihatan cawangan, prestasi staf dan penyelesaian tugasan di setiap lokasi dalam satu paparan.",
+        },
+        reliability: {
+          title: "Wawasan Kebolehpercayaan",
+          desc: "Setiap staf mendapat skor kebolehpercayaan berdasarkan corak kehadiran, penyelesaian tugasan dan konsistensi.",
+        },
+        notifications: {
+          title: "Pemberitahuan & Amaran",
+          desc: "Terima amaran tentang ketibaan lewat, tugasan terlepas dan risiko operasi sebelum ia membesar.",
+        },
+        scheduling: {
+          title: "Penjadualan Syif",
+          desc: "Bina jadual kerja, tugaskan syif, dan kesan konflik atau kekurangan liputan secara automatik.",
+        },
       },
     },
-    scenarios: {
-      retail: { title: "Kedai runcit", desc: "Kedai hadapan jalan dengan jam tetap. Radius GPS di pintu masuk, staf imbas QR ketibaan." },
-      mall: { title: "Kiosk pusat beli-belah", desc: "GPS indoor lemah? Aktifkan mod keyakinan + bukti lokasi supaya promoter punch tanpa tinggalkan lantai." },
-      promoter: { title: "Pasukan promoter", desc: "Part-timer berputar lokasi. Templat syif & tugasan kedai pastikan punch dibenarkan." },
-      multi: { title: "Syarikat berbilang cawangan", desc: "Lima kedai, satu HQ. QR clock berasingan, senarai staf kongsi, laporan kehadiran disatukan." },
+    philosophy: {
+      label: "Falsafah Kami",
+      heading: "Pengurusan Adil Bermula Dengan Ketelusan",
+      body1Plain: "LW OpsFlow tidak menggantikan pengurus.",
+      body1Highlight: "Ia memberi pengurus maklumat yang lebih baik.",
+      body2:
+        "Apabila keputusan disokong oleh data, semua orang mendapat manfaat — bukan sekadar mereka yang paling lantang bersuara.",
+      quote:
+        "\"Pekerja harus dinilai berdasarkan tindakan dan hasil — bukan andaian, ingatan, atau tanggapan peribadi.\"",
+      items: {
+        recognition: "Prestasi cemerlang diiktiraf berdasarkan data yang konsisten",
+        coaching: "Bimbingan menjadi objektif — disokong rekod yang boleh disemak",
+        visibility: "Isu cawangan kelihatan lebih awal, bukan selepas kerosakan berlaku",
+        trust: "Pasukan lebih percaya proses apabila penilaian bersifat telus",
+      },
+      footerPlain: "Tujuannya bukan untuk mengawasi pekerja.",
+      footerHighlight: "Tujuannya adalah ketelusan operasi dan pengurusan yang adil.",
     },
-    steps: {
-      s1: "Daftar & mula percubaan",
-      s2: "Tambah kedai + GPS",
-      s3: "Tambah staf",
-      s4: "Cetak QR clock",
-      s5: "Staf punch · anda semak",
+    insights: {
+      label: "Wawasan Kebolehpercayaan",
+      heading: "Lihat Kisah Di Sebalik Nombor",
+      subtitlePrefix: "Setiap skor boleh dijelaskan dan disemak. Staf dan pengurus dapat faham",
+      subtitleEm: "sebab",
+      subtitleSuffix: "skor berubah — bukan sekadar melihat angka akhir.",
+      cards: {
+        reliability: {
+          label: "Skor Kebolehpercayaan",
+          delta: "+3 minggu ini",
+          what: "Berdasarkan corak kehadiran yang konsisten, ketepatan masa, dan ketiadaan clock in/out lewat atau terlepas.",
+        },
+        attendance: {
+          label: "Skor Kehadiran",
+          delta: "+2 minggu ini",
+          what: "Peratusan hari berjadual yang dihadiri tepat masa. Ketidakhadiran dan kelewatan menurunkan skor ini.",
+        },
+        taskCompletion: {
+          label: "Penyelesaian Tugasan",
+          delta: "−4 minggu ini",
+          what: "Sejauh mana tugasan yang ditugaskan disiapkan sebelum tarikh akhir secara konsisten. Tugasan lewat atau terlepas menurunkan skor ini.",
+        },
+        operationalConsistency: {
+          label: "Konsistensi Operasi",
+          delta: "+1 minggu ini",
+          what: "Menjejak sama ada prosedur harian — senarai semak, pembukaan, penutupan — dipatuhi seperti yang diperlukan.",
+        },
+      },
+      example: {
+        title: "Contoh: Mengapa skor kebolehpercayaan Daniel jatuh daripada 82 kepada 74?",
+        lateArrival: "3× lewat tiba",
+        lateArrivalImpact: "−4 mata",
+        tasksMissed: "2 tugasan terlepas",
+        tasksMissedImpact: "−3 mata",
+        earlyClockOut: "1× clock out awal",
+        earlyClockOutImpact: "−1 mata",
+        footer:
+          "Setiap faktor direkodkan. Pengurus boleh menyemak dengan terperinci punch atau tugasan tepat yang menyebabkan perubahan itu.",
+      },
     },
-    faq: {
-      app: { q: "Staf perlu pasang app?", a: "Tidak. Staf buka QR Clock kedai dalam pelayar mudah alih — imbas, pilih nama, punch. Tiada muat turun kedai app." },
-      mall: { q: "Berfungsi dalam mall?", a: "Ya. Mod Keyakinan Indoor & bukti foto/selfie pilihan dibina untuk tapak GPS lemah." },
-      multi: { q: "Boleh urus lebih satu kedai?", a: "Ya. Semua pelan menyokong berbilang kedai. Setiap lokasi ada zon GPS & QR clock sendiri." },
-      buddy: { q: "Apakah Anti Buddy Punch?", a: "Kawalan setiap kedai yang tandakan peranti baharu, pertukaran peranti, penggunaan peranti kongsi & pengesahan selfie pilihan." },
-      trial: { q: "Ada percubaan percuma?", a: "14 hari, ciri penuh, tiada kad kredit. Daftar syarikat dan sediakan dalam beberapa minit." },
-      pricing: { q: "Bagaimana harga dikira?", a: "Mengikut bilangan kedai & staf. Setiap pelan termasuk ciri sama — anda hanya skala mengikut saiz." },
+    outlets: {
+      label: "Kecerdasan Cawangan",
+      heading: "Fahami Setiap Cawangan Sepintas Lalu",
+      subtitle:
+        "Sama ada anda menguruskan satu lokasi atau lima puluh, keterlihatan yang sama tersedia dari telefon atau komputer anda.",
+      widgets: {
+        mostImproved: {
+          title: "Cawangan Paling Banyak Bertambah Baik",
+          value: "Subang PJ",
+          sub: "Kebolehpercayaan meningkat 12 mata bulan ini. Penyelesaian tugasan kini 94%.",
+        },
+        needsAttention: {
+          title: "Perlu Perhatian",
+          value: "Cawangan Mall",
+          sub: "3 tugasan lewat. 2 staf dengan kebolehpercayaan menurun. Semakan pengurus disyorkan.",
+        },
+        topStaff: {
+          title: "Staf Kebolehpercayaan Tertinggi",
+          value: "Aina M. · 94",
+          sub: "Kehadiran konsisten, sifar tugasan terlepas suku tahun ini. Diiktiraf secara automatik.",
+        },
+        taskTrends: {
+          title: "Trend Penyelesaian Tugasan",
+          value: "+8% bulan ini",
+          sub: "Trend semakin baik di semua cawangan sejak peringatan senarai semak diaktifkan.",
+        },
+        risks: {
+          title: "Risiko Operasi",
+          value: "2 ditandakan hari ini",
+          sub: "Senarai semak pembukaan tidak lengkap di Cawangan Utama. Prosedur penutupan terlepas di Ara Damansara.",
+        },
+        attendanceOverview: {
+          title: "Gambaran Kehadiran",
+          value: "91% tepat masa",
+          sub: "18 daripada 20 staf berjadual clock in tepat masa hari ini. 1 lewat, 1 tidak hadir.",
+        },
+      },
+    },
+    pricingSection: {
+      label: "Harga",
+      heading: "Harga Mudah & Telus",
+      subtitle: "Semua pelan termasuk setiap ciri. Tiada tingkat tersembunyi. Mula percuma selama 14 hari.",
+      mostPopular: "Paling popular",
+      cta: "Mula Percubaan Percuma",
+      footer: "Percubaan percuma 14 hari · Tiada kad kredit diperlukan · Boleh batal bila-bila masa",
+    },
+    faqSection: {
+      label: "Soalan Lazim",
+      heading: "Soalan Yang Kerap Ditanya",
+      items: {
+        surveillance: {
+          q: "Adakah ini alat pengawasan pekerja?",
+          a: "Tidak. LW OpsFlow dibina untuk ketelusan operasi, bukan pengawasan. Tujuannya adalah membantu pengurus membuat keputusan yang adil menggunakan data — bukan menjejaki setiap pergerakan staf.",
+        },
+        app: {
+          q: "Adakah staf perlu memasang aplikasi telefon pintar?",
+          a: "Staf boleh clock in dan clock out menggunakan mana-mana pelayar telefon melalui kod QR — tiada muat turun aplikasi diperlukan. Pengesahan GPS pilihan tersedia untuk pasukan luar atau pelbagai lokasi.",
+        },
+        multiOutlet: {
+          q: "Bolehkah saya urus pelbagai cawangan dari satu akaun?",
+          a: "Ya. Semua pelan menyokong pelbagai kedai. Papan pemuka membolehkan anda bandingkan prestasi, tugasan dan kehadiran di setiap cawangan dalam satu paparan.",
+        },
+        reliabilityScore: {
+          q: "Apakah itu Skor Kebolehpercayaan?",
+          a: "Ia adalah skor yang dikira secara automatik berdasarkan konsistensi kehadiran, kadar penyelesaian tugasan, dan disiplin operasi setiap staf. Setiap faktor boleh disemak.",
+        },
+        override: {
+          q: "Bolehkah pengurus ubah atau batalkan skor?",
+          a: "Pengurus boleh tambah nota, luluskan pengecualian, dan tandakan isu sebagai disemak. Skor mencerminkan data sebenar yang direkod dan tidak dinaikkan secara manual.",
+        },
+        trialLength: {
+          q: "Berapa lama tempoh percubaan percuma?",
+          a: "14 hari, tiada kad kredit diperlukan. Semua ciri tersedia sejak hari pertama.",
+        },
+      },
+    },
+    finalCta: {
+      label: "Mula Sekarang",
+      heading: "Bina Perniagaan Yang Lebih Konsisten",
+      subtitle:
+        "Sama ada anda menguruskan satu cawangan atau lima puluh, keputusan yang lebih baik bermula dengan keterlihatan yang lebih baik.",
+      ctaStartTrial: "Mula Percubaan Percuma",
+      ctaBookDemo: "Tempah Demo",
+      footer: "Percubaan 14 hari · Tiada kad kredit · Boleh batal bila-bila masa",
+    },
+    dashboardPreview: {
+      titleBar: "LW OpsFlow — Kecerdasan Operasi",
+      thisWeekSuffix: "minggu ini",
+      scoreReliability: "Kebolehpercayaan",
+      scoreTask: "Skor Tugasan",
+      scoreCompliance: "Pematuhan",
+      staffReliabilityHeading: "Kebolehpercayaan Staf — Bulan Ini",
+      outletHealthHeading: "Kesihatan Cawangan",
+      tasksTodayHeading: "Tugasan Hari Ini",
+      taskCompleted: "Selesai",
+      taskPending: "Belum Selesai",
+      taskOverdue: "Lewat",
+      needsAttention: "Perlu perhatian",
+      alertMallOutlet: "Cawangan Mall — tugasan lewat",
+      alertDanielReliability: "Daniel T. — kebolehpercayaan menurun",
+      mainBranch: "Cawangan Utama",
+      mallOutlet: "Cawangan Mall",
+      subangPj: "Subang PJ",
+    },
+    stickyTrial: {
+      cta: "Mula Percubaan Percuma",
+      footer: "Percubaan 14 hari · Tiada kad kredit",
     },
   },
   login: {
@@ -519,6 +634,7 @@ export const ms: TranslationTree = {
   tasks: tasksMs,
   operationsCenter: operationsCenterMs,
   notifications: notificationsMs,
+  dailyReports: dailyReportsMs,
   permissions: permissionsMs,
   positions: positionsMs,
   employee: employeeMs,

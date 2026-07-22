@@ -1,5 +1,56 @@
+"use client";
+
+import { useI18n } from "@/components/i18n/LanguageProvider";
+
 /** CSS-only Retail Operations Intelligence dashboard mockup for hero section. */
 export function DashboardPreview() {
+  const { t } = useI18n();
+
+  const scores = [
+    {
+      label: t("landing.dashboardPreview.scoreReliability"),
+      value: "84",
+      delta: "+3",
+      color: "text-emerald-700 bg-emerald-50 border-emerald-100",
+    },
+    {
+      label: t("landing.dashboardPreview.scoreTask"),
+      value: "91",
+      delta: "+7",
+      color: "text-blue-700 bg-blue-50 border-blue-100",
+    },
+    {
+      label: t("landing.dashboardPreview.scoreCompliance"),
+      value: "76",
+      delta: "−2",
+      color: "text-amber-800 bg-amber-50 border-amber-100",
+    },
+  ];
+
+  const staffRows = [
+    { name: "Aina M.", score: 94, color: "bg-emerald-500" },
+    { name: "Daniel T.", score: 72, color: "bg-amber-400" },
+    { name: "Priya S.", score: 88, color: "bg-emerald-500" },
+    { name: "Marcus L.", score: 55, color: "bg-red-400" },
+  ];
+
+  const outletRows = [
+    { shop: t("landing.dashboardPreview.mainBranch"), score: 91, dot: "bg-emerald-500" },
+    { shop: t("landing.dashboardPreview.mallOutlet"), score: 63, dot: "bg-amber-400" },
+    { shop: t("landing.dashboardPreview.subangPj"), score: 78, dot: "bg-emerald-400" },
+  ];
+
+  const taskRows = [
+    { label: t("landing.dashboardPreview.taskCompleted"), count: 14, color: "text-emerald-700" },
+    { label: t("landing.dashboardPreview.taskPending"), count: 3, color: "text-amber-700" },
+    { label: t("landing.dashboardPreview.taskOverdue"), count: 1, color: "text-red-600" },
+  ];
+
+  const alertChips = [
+    t("landing.dashboardPreview.alertMallOutlet"),
+    t("landing.dashboardPreview.alertDanielReliability"),
+  ];
+
   return (
     <div
       className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl"
@@ -11,22 +62,20 @@ export function DashboardPreview() {
         <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
         <span className="ml-3 text-[11px] font-semibold text-slate-500">
-          LW OpsFlow — Operations Intelligence
+          {t("landing.dashboardPreview.titleBar")}
         </span>
       </div>
 
       <div className="space-y-3 p-4 sm:p-5">
         {/* Score row */}
         <div className="grid grid-cols-3 gap-2">
-          {[
-            { label: "Reliability", value: "84", delta: "+3", color: "text-emerald-700 bg-emerald-50 border-emerald-100" },
-            { label: "Task Score", value: "91", delta: "+7", color: "text-blue-700 bg-blue-50 border-blue-100" },
-            { label: "Compliance", value: "76", delta: "−2", color: "text-amber-800 bg-amber-50 border-amber-100" },
-          ].map((s) => (
+          {scores.map((s) => (
             <div key={s.label} className={`rounded-xl border p-2.5 ${s.color}`}>
               <p className="text-[9px] font-bold uppercase tracking-wide opacity-70">{s.label}</p>
               <p className="mt-0.5 text-xl font-bold leading-none">{s.value}</p>
-              <p className="mt-0.5 text-[9px] font-semibold opacity-70">{s.delta} this week</p>
+              <p className="mt-0.5 text-[9px] font-semibold opacity-70">
+                {s.delta} {t("landing.dashboardPreview.thisWeekSuffix")}
+              </p>
             </div>
           ))}
         </div>
@@ -34,15 +83,10 @@ export function DashboardPreview() {
         {/* Staff reliability bars */}
         <div className="rounded-xl border border-slate-200 bg-white p-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-            Staff Reliability — This Month
+            {t("landing.dashboardPreview.staffReliabilityHeading")}
           </p>
           <div className="mt-2 space-y-2">
-            {[
-              { name: "Aina M.", score: 94, color: "bg-emerald-500" },
-              { name: "Daniel T.", score: 72, color: "bg-amber-400" },
-              { name: "Priya S.", score: 88, color: "bg-emerald-500" },
-              { name: "Marcus L.", score: 55, color: "bg-red-400" },
-            ].map((row) => (
+            {staffRows.map((row) => (
               <div key={row.name} className="flex items-center gap-2">
                 <span className="w-14 shrink-0 text-[10px] font-medium text-slate-700">
                   {row.name}
@@ -65,14 +109,10 @@ export function DashboardPreview() {
         <div className="grid grid-cols-2 gap-2">
           <div className="rounded-xl border border-slate-200 bg-white p-2.5">
             <p className="text-[9px] font-bold uppercase tracking-wide text-slate-500">
-              Outlet Health
+              {t("landing.dashboardPreview.outletHealthHeading")}
             </p>
             <div className="mt-1.5 space-y-1">
-              {[
-                { shop: "Main Branch", score: 91, dot: "bg-emerald-500" },
-                { shop: "Mall Outlet", score: 63, dot: "bg-amber-400" },
-                { shop: "Subang PJ", score: 78, dot: "bg-emerald-400" },
-              ].map((o) => (
+              {outletRows.map((o) => (
                 <div key={o.shop} className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${o.dot}`} />
@@ -86,14 +126,10 @@ export function DashboardPreview() {
 
           <div className="rounded-xl border border-slate-200 bg-white p-2.5">
             <p className="text-[9px] font-bold uppercase tracking-wide text-slate-500">
-              Tasks Today
+              {t("landing.dashboardPreview.tasksTodayHeading")}
             </p>
             <div className="mt-1.5 space-y-1">
-              {[
-                { label: "Completed", count: 14, color: "text-emerald-700" },
-                { label: "Pending", count: 3, color: "text-amber-700" },
-                { label: "Overdue", count: 1, color: "text-red-600" },
-              ].map((row) => (
+              {taskRows.map((row) => (
                 <div key={row.label} className="flex items-center justify-between">
                   <span className="text-[9px] text-slate-500">{row.label}</span>
                   <span className={`text-[11px] font-bold ${row.color}`}>{row.count}</span>
@@ -106,10 +142,10 @@ export function DashboardPreview() {
         {/* Alert strip */}
         <div className="rounded-xl border border-amber-100 bg-amber-50/80 px-3 py-2">
           <p className="text-[9px] font-bold uppercase tracking-wide text-amber-800">
-            Needs attention
+            {t("landing.dashboardPreview.needsAttention")}
           </p>
           <div className="mt-1 flex flex-wrap gap-1">
-            {["Mall Outlet — task overdue", "Daniel T. — reliability drop"].map((chip) => (
+            {alertChips.map((chip) => (
               <span
                 key={chip}
                 className="rounded-full border border-amber-200 bg-white px-2 py-0.5 text-[9px] font-semibold text-amber-900"

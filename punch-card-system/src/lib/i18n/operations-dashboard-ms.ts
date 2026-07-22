@@ -131,6 +131,8 @@ export const operationsDashboardMs = {
     change: "Perubahan",
   },
   layout: {
+    todaysAttention: "Perhatian Hari Ini",
+    todaysAttentionDesc: "Amaran pengurusan untuk {date} — tiada rekod kehadiran mentah.",
     operationsOverview: "Gambaran Operasi",
     todaysOperations: "Operasi Hari Ini",
     asOf: "Setakat",
@@ -145,5 +147,18 @@ export const operationsDashboardMs = {
     attendanceScore: "Skor Kehadiran",
     secondaryAnalytics: "Analitik Prestasi",
     secondaryAnalyticsDesc: "Kedudukan tempoh untuk semakan lanjut — bukan operasi langsung.",
+  },
+  attention: {
+    critical: "Kritikal",
+    warning: "Amaran",
+    healthy: "Sihat",
+    absent: "Tidak hadir hari ini",
+    missingClockOut: "Tiada clock out",
+    overdueTasks: "Tugasan lewat",
+    late: "Staf lewat",
+    forgotPunch: "Permohonan lupa punch terbuka",
+    pendingTasks: "Tugasan menunggu",
+    none: "Tiada",
+    noHealthyShops: "Tiada kedai yang bersih sepenuhnya hari ini.",
   },
 };

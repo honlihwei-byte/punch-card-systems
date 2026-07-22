@@ -136,6 +136,8 @@ export const operationsDashboardEn = {
     change: "Change",
   },
   layout: {
+    todaysAttention: "Today's Attention",
+    todaysAttentionDesc: "Management alerts for {date} — no raw attendance records.",
     operationsOverview: "Operations Overview",
     todaysOperations: "Today's Operations",
     asOf: "As of",
@@ -150,5 +152,18 @@ export const operationsDashboardEn = {
     attendanceScore: "Attendance Score",
     secondaryAnalytics: "Performance Analytics",
     secondaryAnalyticsDesc: "Period rankings for deeper review — not live operations.",
+  },
+  attention: {
+    critical: "Critical",
+    warning: "Warning",
+    healthy: "Healthy",
+    absent: "Absent today",
+    missingClockOut: "Missing clock out",
+    overdueTasks: "Overdue tasks",
+    late: "Late staff",
+    forgotPunch: "Open forgot punch requests",
+    pendingTasks: "Pending tasks",
+    none: "None",
+    noHealthyShops: "No shops are fully clear today.",
   },
 };

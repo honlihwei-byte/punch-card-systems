@@ -38,6 +38,7 @@ import {
   operationsDashboardCacheKey,
   setOperationsDashboardCache,
 } from "@/lib/operations-dashboard-cache";
+import { buildTodaysAttention } from "@/lib/todays-attention";
 import { endDevTimer, startDevTimer } from "@/lib/performance-timing";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -381,6 +382,18 @@ export async function GET(req: Request) {
         risks.review_required_count +
         risks.overdue_tasks_count +
         risks.task_exceptions_count;
+      const todays_attention = await buildTodaysAttention({
+        supabase,
+        companyId,
+        companyShopIds,
+        today,
+        staff,
+        dayPunches,
+        schedulesByStaffDay: schedulesRange,
+        shopNameById,
+        todayShopRows,
+      });
+
       const summaryPayload = {
         view: "summary",
         date: today,
@@ -390,6 +403,7 @@ export async function GET(req: Request) {
           staff_needing_attention: todayDayStaff.length,
           most_improved_shop_name: null,
         },
+        todays_attention,
         risks,
         shops: todayShopRows.map((s) => ({
           shop_id: s.shop_id,

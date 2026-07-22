@@ -87,6 +87,7 @@ export const operationsCenterMs = {
     attachments: "Lampiran",
     uploadFile: "Muat naik fail",
     uploadHint: "PDF, JPG, PNG, DOCX, XLSX sehingga 10MB. Imej dan PDF pratonton dalam app.",
+    saveChanges: "Simpan perubahan",
     saveDraft: "Simpan draf",
     publish: "Terbitkan",
     saving: "Menyimpan…",

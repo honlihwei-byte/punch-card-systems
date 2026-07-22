@@ -25,6 +25,7 @@ export const drilldownMs = {
   highlights: "Sorotan kakitangan",
   formula: "Formula skor",
   periodDays: "Berdasarkan {days} hari kehadiran dan tugasan terakhir.",
+  gpsReliabilityNote: "Isu GPS dikecualikan daripada skor kebolehpercayaan kecuali disemak dan disahkan sebagai penyalahgunaan.",
   shop: {
     best_performer: "Prestasi terbaik",
     most_improved: "Paling bertambah baik",

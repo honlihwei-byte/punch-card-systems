@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "check:i18n": "node scripts/i18n-key-parity.cjs",
     "verify-schema": "node scripts/verify-schema.mjs",
     "verify-rls": "node scripts/verify-rls.mjs",
     "migrate:022": "node scripts/apply-migration-022.mjs",
@@ -17,7 +18,7 @@
     "migrate:031": "node scripts/apply-migration-031.mjs",
     "verify:default-company": "node scripts/verify-default-company.mjs",
     "test:default-login": "node scripts/test-default-login.mjs",
-    "build": "npm run verify-schema && next build",
+    "build": "npm run verify-schema && npm run check:i18n && next build",
     "start": "next start",
     "lint": "eslint"
   },

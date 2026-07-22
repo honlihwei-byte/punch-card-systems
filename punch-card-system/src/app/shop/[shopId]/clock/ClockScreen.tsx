@@ -70,6 +70,7 @@ import { endDevTimer, startDevTimer } from "@/lib/performance-timing";
 import { ClockOutTasksWarning } from "@/components/clock/ClockOutTasksWarning";
 import { ClockTodayTasksPanel } from "@/components/clock/ClockTodayTasksPanel";
 import { ForgotPunchRequestDialog } from "@/components/clock/ForgotPunchRequestDialog";
+import { StaffMyAttendanceSection } from "@/components/clock/StaffMyAttendanceSection";
 import { StaffTodayStatusCard } from "@/components/clock/StaffTodayStatusCard";
 import type { AttendanceRecord, PunchActionType } from "@/lib/attendance";
 import type { ForgotPunchRequestType } from "@/lib/forgot-punch";
@@ -78,9 +79,7 @@ import {
   type StaffTodayStatusSummary,
 } from "@/lib/staff-day-status";
 import {
-  translateEmployeeStatus,
   translatePunchSuccessToast,
-  translateScheduleDisplayLabel,
 } from "@/lib/i18n/employee-translate";
 import { SMART_PUNCH_DUPLICATE_WINDOW_MS, validateSmartPunch } from "@/lib/smart-punch";
 import { SubscriptionRequired } from "@/components/clock/SubscriptionRequired";
@@ -335,6 +334,9 @@ export function ClockScreen({
     shifts_today?: number;
   } | null>(null);
   const [forgotPunchOpen, setForgotPunchOpen] = useState(false);
+  const [forgotPunchSuggestedOverride, setForgotPunchSuggestedOverride] =
+    useState<ForgotPunchRequestType | null>(null);
+  const [historyRefreshKey, setHistoryRefreshKey] = useState(0);
   const [missingRestInConfirm, setMissingRestInConfirm] = useState(false);
   const skipMissingRestInConfirmRef = useRef(false);
   const [unfinishedTaskCount, setUnfinishedTaskCount] = useState(0);
@@ -459,11 +461,17 @@ export function ClockScreen({
   }, [smartPunchAction, selfieProofForAction]);
 
   const forgotPunchSuggestedType: ForgotPunchRequestType | null =
-    todayStatus?.attendance_issues?.missing_clock_in
+    forgotPunchSuggestedOverride ??
+    (todayStatus?.attendance_issues?.missing_clock_in
       ? "forgot_clock_in"
       : todayStatus?.attendance_issues?.missing_clock_out
         ? "forgot_clock_out"
-        : null;
+        : null);
+
+  function openForgotPunch(suggested?: ForgotPunchRequestType | null) {
+    setForgotPunchSuggestedOverride(suggested ?? null);
+    setForgotPunchOpen(true);
+  }
 
   const fetchTodayStatus = useCallback(async () => {
     if (!validShopId || !hasPunchGate || !hasStaffForPunch) {
@@ -565,6 +573,12 @@ export function ClockScreen({
       setScheduleInfo(null);
     }
   }, [validShopId, hasStaffForPunch, identifier, effectiveStaffId, shopId, useManualCode]);
+
+  const refreshAttendancePanels = useCallback(() => {
+    void fetchTodayStatus();
+    void fetchNextShift();
+    setHistoryRefreshKey((k) => k + 1);
+  }, [fetchTodayStatus, fetchNextShift]);
 
   useEffect(() => {
     void fetchTodayStatus();
@@ -1443,7 +1457,7 @@ export function ClockScreen({
           punchTime("punch UI feedback", totalStart);
           punchTimeSectionEnd("total_punch");
 
-          window.setTimeout(() => void fetchTodayStatus(), 150);
+          window.setTimeout(() => refreshAttendancePanels(), 150);
 
           if (pendingSelfie) {
             scheduleSelfieUploadAfterPunch(data.id, staffId, manual, pendingSelfie.preview);
@@ -1475,7 +1489,7 @@ export function ClockScreen({
         punchTime("punch UI feedback", totalStart);
         punchTimeSectionEnd("total_punch");
 
-        window.setTimeout(() => void fetchTodayStatus(), 150);
+        window.setTimeout(() => refreshAttendancePanels(), 150);
 
         window.setTimeout(() => {
           releasePunchLock();
@@ -1762,6 +1776,26 @@ export function ClockScreen({
           summary={todayStatus}
           loading={todayStatusLoading}
           error={todayStatusError}
+          sessions={scheduleInfo?.today_shifts ?? []}
+          fixedSchedule={
+            scheduleInfo?.mode === "fixed"
+              ? {
+                  start_time:
+                    scheduleInfo.today?.start_time ?? scheduleInfo.schedule?.start_time ?? "",
+                  end_time:
+                    scheduleInfo.today?.end_time ?? scheduleInfo.schedule?.end_time ?? "",
+                }
+              : null
+          }
+          canRequestCorrection={Boolean(
+            (punchQrToken || employeePortalMode) &&
+              (todayStatus?.attendance_issues?.missing_clock_in ||
+                todayStatus?.attendance_issues?.missing_clock_out ||
+                scheduleInfo?.today_shifts?.some((s) =>
+                  ["missing_clock_out", "absent"].includes(String(s.shift_status ?? "")),
+                )),
+          )}
+          onRequestCorrection={() => openForgotPunch(forgotPunchSuggestedType)}
         />
       ) : null}
 
@@ -1804,115 +1838,16 @@ export function ClockScreen({
         </Link>
       ) : null}
 
-      {hasStaffForPunch ? (
-        <section className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm dark:border-zinc-800 dark:bg-zinc-900">
-          {scheduleInfo?.mode === "fixed" ? (
-            <>
-              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                {t("employee.schedule.todayWorkTime")}
-              </p>
-              <p className="mt-1 font-semibold text-zinc-900 dark:text-zinc-50">
-                {scheduleInfo.today?.start_time ?? scheduleInfo.schedule?.start_time}–
-                {scheduleInfo.today?.end_time ?? scheduleInfo.schedule?.end_time}
-              </p>
-            </>
-          ) : (
-            <>
-              <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-                {t("employee.status.todays_shifts")}
-              </p>
-              {scheduleInfo?.warning ? (
-                <p className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-xs font-medium text-amber-900 dark:bg-amber-950/40 dark:text-amber-100">
-                  {scheduleInfo.warning}
-                </p>
-              ) : null}
-
-              {scheduleInfo?.current_shift_label != null || scheduleInfo?.next_shift_label != null ? (
-                <dl className="mt-2 space-y-1 text-sm">
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-zinc-500">{t("employee.status.current_shift")}</dt>
-                    <dd className="font-semibold text-zinc-900 dark:text-zinc-50">
-                      {translateScheduleDisplayLabel(t, scheduleInfo.current_shift_label)}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-zinc-500">{t("employee.status.next_shift")}</dt>
-                    <dd className="font-semibold text-zinc-900 dark:text-zinc-50">
-                      {scheduleInfo.next_shift_label
-                        ? translateScheduleDisplayLabel(t, scheduleInfo.next_shift_label)
-                        : t("employee.common.none")}
-                    </dd>
-                  </div>
-                  {scheduleInfo.day_status ? (
-                    <p className="text-xs text-zinc-500">
-                      {t("employee.common.status")}:{" "}
-                      {translateEmployeeStatus(t, scheduleInfo.day_status)}
-                    </p>
-                  ) : null}
-                </dl>
-              ) : null}
-
-              {scheduleInfo?.today_shifts && scheduleInfo.today_shifts.length > 0 ? (
-                <div className="mt-2 space-y-2">
-                  {scheduleInfo.today_shifts.map((s) => (
-                    <div
-                      key={s.id}
-                      className={`rounded-lg border px-3 py-2 ${
-                        s.is_current_shop
-                          ? "border-emerald-200 bg-emerald-50/70 dark:border-emerald-900 dark:bg-emerald-950/30"
-                          : "border-zinc-200 bg-zinc-50/70 dark:border-zinc-800 dark:bg-zinc-950/20"
-                      }`}
-                    >
-                      <p className="text-xs font-semibold text-zinc-500">
-                        {s.shift_index != null ? `${s.shift_index}. ` : ""}
-                        {s.shop_name ?? t("employee.common.shop")}
-                        {s.is_current_shop ? (
-                          <span className="ml-1 rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-100">
-                            {t("employee.schedule.thisShop")}
-                          </span>
-                        ) : null}
-                      </p>
-                      <p className="mt-0.5 font-mono text-sm font-semibold text-zinc-900 dark:text-zinc-50">
-                        {s.start_time}–{s.end_time}
-                      </p>
-                      <p className="mt-0.5 text-xs text-zinc-600 dark:text-zinc-400">
-                        {translateEmployeeStatus(t, s.shift_status ?? s.status_label ?? "")}
-                        {s.actual_clock_in || s.actual_clock_out
-                          ? ` · ${t("employee.schedule.punchIn")} ${s.actual_clock_in ?? t("employee.common.emDash")} · ${t("employee.schedule.punchOut")} ${s.actual_clock_out ?? t("employee.common.emDash")}`
-                          : ""}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : scheduleInfo?.tomorrow ? (
-                <>
-                  <p className="mt-1 text-sm font-semibold text-zinc-900 dark:text-zinc-50">
-                    {t("employee.schedule.noShiftToday")}
-                  </p>
-                  <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                    {t("employee.schedule.nextShiftTomorrow")} {scheduleInfo.tomorrow.start_time}–
-                    {scheduleInfo.tomorrow.end_time}
-                  </p>
-                </>
-              ) : scheduleInfo?.upcoming ? (
-                <p className="mt-1 font-semibold text-zinc-900 dark:text-zinc-50">
-                  {t("employee.schedule.nextShiftOn")} {scheduleInfo.upcoming.shift_date}{" "}
-                  {scheduleInfo.upcoming.start_time}–{scheduleInfo.upcoming.end_time}
-                </p>
-              ) : (
-                <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-                  {t("employee.schedule.noShiftAssigned")}
-                </p>
-              )}
-            </>
-          )}
-        </section>
+      {hasStaffForPunch && scheduleInfo?.warning ? (
+        <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs font-medium text-amber-900 dark:bg-amber-950/40 dark:text-amber-100">
+          {scheduleInfo.warning}
+        </p>
       ) : null}
 
       {hasStaffForPunch && (punchQrToken || employeePortalMode) ? (
         <button
           type="button"
-          onClick={() => setForgotPunchOpen(true)}
+          onClick={() => openForgotPunch(forgotPunchSuggestedType)}
           className="w-full rounded-xl border border-teal-300 bg-teal-50 py-3 text-sm font-semibold text-teal-900 dark:border-teal-800 dark:bg-teal-950/30 dark:text-teal-100"
         >
           {t("employee.status.forgot_punch_request")}
@@ -1953,7 +1888,10 @@ export function ClockScreen({
       {hasStaffForPunch && (punchQrToken || employeePortalMode) ? (
         <ForgotPunchRequestDialog
           open={forgotPunchOpen}
-          onClose={() => setForgotPunchOpen(false)}
+          onClose={() => {
+            setForgotPunchOpen(false);
+            setForgotPunchSuggestedOverride(null);
+          }}
           shopId={shopId}
           punchQrToken={punchQrToken}
           useEmployeeSession={employeePortalMode}
@@ -1961,7 +1899,20 @@ export function ClockScreen({
           staffIdentifier={useManualCode ? identifier.trim() : ""}
           useManualCode={useManualCode}
           suggestedType={forgotPunchSuggestedType}
-          onSubmitted={() => void fetchTodayStatus()}
+          onSubmitted={() => refreshAttendancePanels()}
+        />
+      ) : null}
+
+      {hasStaffForPunch && (punchQrToken || employeePortalMode || Boolean(effectiveStaffId)) ? (
+        <StaffMyAttendanceSection
+          shopId={shopId}
+          staffId={useManualCode ? "" : effectiveStaffId}
+          staffIdentifier={useManualCode ? identifier.trim() : ""}
+          useManualCode={useManualCode}
+          punchQrToken={punchQrToken}
+          useEmployeeSession={employeePortalMode}
+          refreshKey={historyRefreshKey}
+          onRequestCorrection={({ suggestedType }) => openForgotPunch(suggestedType)}
         />
       ) : null}
 

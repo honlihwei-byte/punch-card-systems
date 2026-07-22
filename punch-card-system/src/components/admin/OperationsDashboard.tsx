@@ -7,7 +7,9 @@ import {
   OperationsScoreDrillDownHost,
   useOperationsScoreDrillDown,
 } from "@/components/admin/operations/OperationsScoreDrillDown";
+import { TodaysAttentionSection } from "@/components/admin/TodaysAttentionSection";
 import type { HealthReasonKey, HealthStatusBand } from "@/lib/operations-dashboard";
+import type { TodaysAttentionPayload } from "@/lib/todays-attention";
 import type {
   EmployeeRankingRow,
   OutletRankingRow,
@@ -178,6 +180,7 @@ export function OperationsDashboard() {
   const [period, setPeriod] = useState<PerformancePeriod>("month");
   const [performance, setPerformance] = useState<PerformanceAnalyticsPayload | null>(null);
   const [today, setToday] = useState<TodayOpsPayload | null>(null);
+  const [todaysAttention, setTodaysAttention] = useState<TodaysAttentionPayload | null>(null);
   const [perfLoading, setPerfLoading] = useState(true);
   const [todayLoading, setTodayLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -212,11 +215,15 @@ export function OperationsDashboard() {
         fetch("/api/admin/operations-dashboard?view=summary", { credentials: "include" }),
         fetch("/api/admin/operations-dashboard?view=analytics", { credentials: "include" }),
       ]);
-      const summary = (await summaryRes.json()) as TodayOpsPayload & { error?: string };
+      const summary = (await summaryRes.json()) as TodayOpsPayload & {
+        error?: string;
+        todays_attention?: TodaysAttentionPayload;
+      };
       const analytics = (await analyticsRes.json()) as { staff_needs_attention?: StaffAttentionRow[] };
       if (!summaryRes.ok && !summary.shops) {
         throw new Error(summary.error || t("dashboard.operations.loadError"));
       }
+      setTodaysAttention(summary.todays_attention ?? null);
       setToday({
         date: summary.date,
         shops: summary.shops ?? [],
@@ -318,6 +325,8 @@ export function OperationsDashboard() {
           </button>
         </div>
       ) : null}
+
+      <TodaysAttentionSection data={todaysAttention} loading={todayLoading} />
 
       {/* 1. Operations Overview */}
       <section className="space-y-4">

@@ -10,6 +10,7 @@ import { permissionsEn } from "./permissions-en";
 import { positionsEn } from "./positions-en";
 import { employeeEn } from "./employee-en";
 import { notificationsEn } from "./notifications-en";
+import { dailyReportsEn } from "./daily-reports-en";
 import { drilldownEn } from "./drilldown-en";
 
 export const en: TranslationTree = {
@@ -36,6 +37,8 @@ export const en: TranslationTree = {
     employees: "Employees",
     tasks: "Tasks",
     operationsCenter: "Operations Hub",
+    notifications: "Notifications",
+    dailyReports: "Daily Reports",
     settings: "Settings",
     billing: "Billing",
     helpCenter: "Help Center",
@@ -70,147 +73,258 @@ export const en: TranslationTree = {
     addShop: "Add shop",
   },
   landing: {
-    badge: "LW OpsFlow · Retail Workforce Operations Platform",
-    heroTitle1: "Stop Managing Shops Blind.",
-    heroTitle2: "",
-    heroSubtitle:
-      "See every branch, every shift, every risk — in one place.",
-    problemsTitle: "Common attendance problems",
-    problemsSubtitle:
-      "If this sounds like your shop floor, you're not alone — and you shouldn't need a spreadsheet to fix it.",
-    featuresTitle: "Built for multi-shop retail operations",
-    featuresSubtitle: "Visibility, discipline, and on-site proof — not another payroll system.",
-    antiBuddyBadge: "Anti buddy punch",
-    pricingTitle: "Simple pricing that scales with you",
-    pricingSubtitle: "All features on every plan. Pay for shop and staff size — not feature tiers.",
-    popular: "Popular",
-    scenariosTitle: "Built for real business scenarios",
-    scenariosSubtitle: "Same platform — tuned per shop for how you actually operate.",
-    howItWorksTitle: "How it works",
-    founderLabel: "Founder story",
-    founderTitle: "Built from real retail operations experience.",
-    founderBody:
-      "LW OpsFlow started on shop floors — chasing missing clock-outs, fixing buddy punches, and reconciling mall kiosks with spreadsheets. We built OpsFlow Attendance so managers spend less time verifying hours and more time running the business.",
-    faqTitle: "FAQ",
-    ctaTitle: "See your shops clearly — starting today.",
-    ctaSubtitle: "14-day free trial. No credit card. Full features from day one.",
-    ctaButton: "Start 14-Day Free Trial",
-    trust: {
-      trial: "14-Day Free Trial",
-      noCard: "No Credit Card Required",
-      multiShop: "Multi-Shop Visibility",
-      gpsQr: "Retail-Ready GPS",
-      payroll: "Schedule vs Actual",
-      security: "Staff Discipline Controls",
+    hero: {
+      badge: "Retail Operations Intelligence Platform",
+      titleLine1: "Manage Every Outlet",
+      titleHighlight: "With Data,",
+      titleLine2: "Not Guesswork",
+      subtitleLine1:
+        "See attendance, task completion, reliability, operational discipline, and outlet performance in one dashboard.",
+      subtitlePlain: "Stop chasing staff.",
+      subtitleHighlight: "Start understanding your business.",
+      ctaStartTrial: "Start Free Trial",
+      ctaBookDemo: "Book Demo",
+      badge1: "14-day free trial",
+      badge2: "No credit card",
+      badge3: "Multi-outlet ready",
+      badge4: "Mobile-friendly",
     },
-    productFeatures: {
-      gpsQr: "Multi-Shop Visibility",
-      multiShop: "Staff Discipline Tracking",
-      scheduling: "Retail-Ready GPS Verification",
-      payroll: "Schedule vs Actual Attendance",
-      security: "Manager Risk Dashboard",
-      reports: "Operations Reports",
-    },
-    pillars: {
-      visibility: {
-        title: "Multi-Shop Visibility",
-        desc: "Know who is working in every branch — without visiting each shop.",
-        b1: "Per-shop live status",
-        b2: "Cross-branch staff view",
-        b3: "One company login",
-      },
-      discipline: {
-        title: "Staff Discipline Tracking",
-        desc: "Detect late arrivals, missing clock outs, location issues, and risky attendance patterns.",
-        b1: "Late & missing punch alerts",
-        b2: "Buddy punch detection",
-        b3: "Staff reliability scoring",
-      },
-      gps: {
-        title: "Retail-Ready GPS Verification",
-        desc: "Built for shopping malls, high-rise buildings, and indoor retail outlets.",
-        b1: "Indoor confidence mode",
-        b2: "Multi GPS points",
-        b3: "Photo proof fallback",
-      },
-      schedule: {
-        title: "Schedule vs Actual Attendance",
-        desc: "Compare planned shifts with real clock-in records across every shop.",
-        b1: "Shift templates per shop",
-        b2: "Cross-shop schedule awareness",
-        b3: "Scheduled vs actual hours",
-      },
-      dashboard: {
-        title: "Manager Risk Dashboard",
-        desc: "See what needs attention today — not at month-end.",
-        b1: "Today's risks panel",
-        b2: "Shop health scores",
-        b3: "Staff needing attention",
+    problem: {
+      label: "The Problem",
+      heading: "Good Employees Often Go Unnoticed",
+      subtitle:
+        "Without a clear record of performance, decisions get made on memory, gut feeling, and who is most visible — not who actually contributes.",
+      items: {
+        unrecognised: {
+          title: "Hard workers go unrecognised",
+          desc: "High-performing staff are treated the same as poor performers when there's no data to show the difference.",
+        },
+        memory: {
+          title: "Managers rely on memory",
+          desc: "Decisions during performance reviews are based on recent impressions — not months of consistent behaviour.",
+        },
+        tooLate: {
+          title: "Outlet problems discovered too late",
+          desc: "Issues like repeated lateness or missed tasks only surface when they've already become serious.",
+        },
+        subjective: {
+          title: "Performance reviews become subjective",
+          desc: "Without data, evaluations favour those who are vocal or well-liked rather than those who consistently deliver.",
+        },
+        motivation: {
+          title: "Strong employees lose motivation",
+          desc: "When effort is invisible, top performers quietly disengage. The system rewards the wrong behaviour.",
+        },
+        noVisibility: {
+          title: "No visibility across outlets",
+          desc: "Multi-outlet owners can't compare consistency, compliance, or reliability without visiting in person.",
+        },
       },
     },
-    problems: {
-      forgetIn: { title: "Staff forget to clock in", desc: "You only find out at month-end when payroll doesn't match reality." },
-      buddy: { title: "Buddy punching on shared phones", desc: "One device clocks in for multiple people — hours look fine, shop isn't." },
-      gps: { title: "GPS fails indoors", desc: "Malls and high-rise sites block location — staff can't punch, lines build up." },
-      manual: { title: "Manual attendance chasing", desc: "WhatsApp groups, spreadsheets, and “did you clock out?” every evening." },
-    },
-    features: {
-      gpsQr: {
-        title: "GPS + QR On-Site Punch",
-        desc: "Staff scan your shop QR and verify location before clock in/out — no shared tablet login.",
-        b1: "Multi GPS points",
-        b2: "Indoor confidence mode",
-        b3: "Photo proof fallback",
-      },
-      security: {
-        title: "Security Controls",
-        desc: "Security Center for risk review, selfie verification, device control, and per-shop GPS alerts.",
-        b1: "Risk review queue",
-        b2: "Selfie verification",
-        b3: "Buddy punch detection",
-      },
-      schedule: {
-        title: "Shift Scheduling",
-        desc: "Fixed hours or shift templates per shop. Payroll uses scheduled shift length, not extra early/late time.",
-        b1: "Shift templates",
-        b2: "Multi-shift days",
-        b3: "Staff schedules",
-      },
-      payroll: {
-        title: "Payroll Hours & Reports",
-        desc: "Scheduled payroll hours (early/late punches don't inflate pay), actual hours, and CSV payroll reports.",
-        b1: "Scheduled vs actual hours",
-        b2: "Late & absent KPIs",
-        b3: "CSV export",
-      },
-      multiShop: {
-        title: "Multi-Shop, One Company",
-        desc: "Each branch gets its own GPS, QR, and rules — you manage everything from one admin login.",
-        b1: "Per-shop setup",
-        b2: "Company-wide reports",
-        b3: "Staff assigned by shop",
+    solution: {
+      label: "The Solution",
+      heading: "Make Performance Visible",
+      subtitle:
+        "Every module connects to give you a complete picture of how your outlets and people are actually performing.",
+      items: {
+        attendance: {
+          title: "Attendance Tracking",
+          desc: "QR + GPS clock-in/out with anti buddy-punch controls. Know exactly who is on site and when.",
+        },
+        taskAccountability: {
+          title: "Task Accountability",
+          desc: "Assign, track, and verify daily tasks. Know what was completed, what was skipped, and by whom.",
+        },
+        photoVerification: {
+          title: "Photo Verification",
+          desc: "Staff submit photo proof for task completion. Reviewers accept, mark fair, or reject with feedback.",
+        },
+        compliance: {
+          title: "Operational Compliance",
+          desc: "Set checklists for opening, closing, and daily routines. Track whether procedures are actually followed.",
+        },
+        multiShop: {
+          title: "Multi-Shop Monitoring",
+          desc: "Compare outlet health, staff performance, and task completion across every location in one view.",
+        },
+        reliability: {
+          title: "Reliability Insights",
+          desc: "Each staff member gets a reliability score based on attendance patterns, task completion, and consistency.",
+        },
+        notifications: {
+          title: "Notifications & Alerts",
+          desc: "Get alerted on late arrivals, missed tasks, and operational risks before they escalate.",
+        },
+        scheduling: {
+          title: "Shift Scheduling",
+          desc: "Build rosters, assign shifts, and automatically detect conflicts or coverage gaps.",
+        },
       },
     },
-    scenarios: {
-      retail: { title: "Retail Shop", desc: "Street-front store with fixed hours. GPS radius at entrance, staff scan QR on arrival." },
-      mall: { title: "Shopping Mall Kiosk", desc: "Weak indoor GPS? Enable confidence mode + location proof so promoters punch without leaving the floor." },
-      promoter: { title: "Promoter Team", desc: "Rotating part-timers across locations. Shift templates and shop assignment keep punches authorized." },
-      multi: { title: "Multi Branch Company", desc: "Five shops, one HQ. Separate clock QRs, shared staff roster, consolidated attendance reports." },
+    philosophy: {
+      label: "Our Philosophy",
+      heading: "Fair Management Starts With Transparency",
+      body1Plain: "LW OpsFlow does not replace managers.",
+      body1Highlight: "It gives managers better information.",
+      body2:
+        "When decisions are supported by data, everyone benefits — not just the people who are loudest in the room.",
+      quote:
+        "“Employees should be evaluated based on actions and results — not assumptions, memory, or personal impressions.”",
+      items: {
+        recognition: "High performers receive recognition based on consistent data",
+        coaching: "Coaching becomes objective — backed by traceable records",
+        visibility: "Outlet issues become visible earlier, not after damage is done",
+        trust: "Teams trust the process more when evaluation is transparent",
+      },
+      footerPlain: "The goal is not employee surveillance.",
+      footerHighlight: "The goal is operational transparency and fair management.",
     },
-    steps: {
-      s1: "Register & start trial",
-      s2: "Add shop + GPS",
-      s3: "Add staff",
-      s4: "Print clock QR",
-      s5: "Staff punch · you review",
+    insights: {
+      label: "Reliability Insights",
+      heading: "See The Story Behind The Numbers",
+      subtitlePrefix: "Every score is explainable and traceable. Staff and managers can understand",
+      subtitleEm: "why",
+      subtitleSuffix: "a score moved — not just what it is.",
+      cards: {
+        reliability: {
+          label: "Reliability Score",
+          delta: "+3 this week",
+          what: "Based on consistent attendance patterns, punctuality, and absence of late or missed punches.",
+        },
+        attendance: {
+          label: "Attendance Score",
+          delta: "+2 this week",
+          what: "Percentage of scheduled days attended on time. Absences and late arrivals reduce this score.",
+        },
+        taskCompletion: {
+          label: "Task Completion",
+          delta: "−4 this week",
+          what: "How consistently assigned tasks are completed before deadline. Overdue and skipped tasks reduce this.",
+        },
+        operationalConsistency: {
+          label: "Operational Consistency",
+          delta: "+1 this week",
+          what: "Tracks whether daily procedures — checklists, openings, closings — are followed as required.",
+        },
+      },
+      example: {
+        title: "Example: Why did Daniel's reliability score drop from 82 → 74?",
+        lateArrival: "3× late arrival",
+        lateArrivalImpact: "−4 pts",
+        tasksMissed: "2 tasks missed",
+        tasksMissedImpact: "−3 pts",
+        earlyClockOut: "1 early clock-out",
+        earlyClockOutImpact: "−1 pt",
+        footer:
+          "Every factor is recorded. Managers can drill down to the exact punch or task that triggered the change.",
+      },
     },
-    faq: {
-      app: { q: "Do staff need to install an app?", a: "No. Staff open the shop Clock QR in their mobile browser — scan, select name, punch. No app store download." },
-      mall: { q: "Does it work inside shopping malls?", a: "Yes. Indoor Confidence Mode and optional photo/selfie proof are built for weak-GPS sites." },
-      multi: { q: "Can I manage more than one shop?", a: "Yes. All plans support multiple shops. Each location has its own GPS zone and clock QR." },
-      buddy: { q: "What is Anti Buddy Punch?", a: "Per-shop controls that flag new devices, device switching, shared-device use, and optional selfie verification." },
-      trial: { q: "Is there a free trial?", a: "14 days, full features, no credit card. Register your company and set up in minutes." },
-      pricing: { q: "How is pricing calculated?", a: "By shop and staff count. Every plan includes the same features — you only scale by size." },
+    outlets: {
+      label: "Outlet Intelligence",
+      heading: "Understand Every Outlet At A Glance",
+      subtitle:
+        "Whether you manage one location or fifty, the same visibility is available from your phone or desktop.",
+      widgets: {
+        mostImproved: {
+          title: "Most Improved Outlet",
+          value: "Subang PJ",
+          sub: "Reliability up 12 pts this month. Task completion now at 94%.",
+        },
+        needsAttention: {
+          title: "Needs Attention",
+          value: "Mall Outlet",
+          sub: "3 overdue tasks. 2 staff with declining reliability. Manager review recommended.",
+        },
+        topStaff: {
+          title: "Top Reliability Staff",
+          value: "Aina M. · 94",
+          sub: "Consistent attendance, zero missed tasks this quarter. Recognised automatically.",
+        },
+        taskTrends: {
+          title: "Task Completion Trends",
+          value: "+8% this month",
+          sub: "Trend is improving across all outlets since checklist reminders were enabled.",
+        },
+        risks: {
+          title: "Operational Risks",
+          value: "2 flagged today",
+          sub: "Opening checklist incomplete at Main Branch. Closing procedure skipped at Ara Damansara.",
+        },
+        attendanceOverview: {
+          title: "Attendance Overview",
+          value: "91% on time",
+          sub: "18 of 20 scheduled staff clocked in on time today. 1 late, 1 absent.",
+        },
+      },
+    },
+    pricingSection: {
+      label: "Pricing",
+      heading: "Simple, Transparent Pricing",
+      subtitle: "All plans include every feature. No hidden tiers. Start free for 14 days.",
+      mostPopular: "Most popular",
+      cta: "Start Free Trial",
+      footer: "14-day free trial · No credit card required · Cancel anytime",
+    },
+    faqSection: {
+      label: "FAQ",
+      heading: "Common Questions",
+      items: {
+        surveillance: {
+          q: "Is this an employee surveillance tool?",
+          a: "No. LW OpsFlow is designed for operational transparency, not monitoring. The goal is to help managers make fair decisions using data — not to track every movement of staff.",
+        },
+        app: {
+          q: "Do staff need a smartphone app?",
+          a: "Staff can clock in and out using any phone browser via QR code — no app download required. Optional GPS verification is available for outdoor or multi-location teams.",
+        },
+        multiOutlet: {
+          q: "Can I manage multiple outlets from one account?",
+          a: "Yes. All plans support multiple shops. The dashboard lets you compare performance, tasks, and attendance across every outlet in one view.",
+        },
+        reliabilityScore: {
+          q: "What is a Reliability Score?",
+          a: "It is an automatically calculated score based on each staff member's attendance consistency, task completion rate, and operational discipline. Every factor is traceable.",
+        },
+        override: {
+          q: "Can managers adjust or override scores?",
+          a: "Managers can leave notes, approve exceptions, and mark issues as reviewed. Scores reflect actual recorded data and are not manually inflated.",
+        },
+        trialLength: {
+          q: "How long is the free trial?",
+          a: "14 days, no credit card required. All features are available from day one.",
+        },
+      },
+    },
+    finalCta: {
+      label: "Get Started",
+      heading: "Build A More Consistent Business",
+      subtitle: "Whether you manage one outlet or fifty, better decisions start with better visibility.",
+      ctaStartTrial: "Start Free Trial",
+      ctaBookDemo: "Book Demo",
+      footer: "14-day trial · No credit card · Cancel anytime",
+    },
+    dashboardPreview: {
+      titleBar: "LW OpsFlow — Operations Intelligence",
+      thisWeekSuffix: "this week",
+      scoreReliability: "Reliability",
+      scoreTask: "Task Score",
+      scoreCompliance: "Compliance",
+      staffReliabilityHeading: "Staff Reliability — This Month",
+      outletHealthHeading: "Outlet Health",
+      tasksTodayHeading: "Tasks Today",
+      taskCompleted: "Completed",
+      taskPending: "Pending",
+      taskOverdue: "Overdue",
+      needsAttention: "Needs attention",
+      alertMallOutlet: "Mall Outlet — task overdue",
+      alertDanielReliability: "Daniel T. — reliability drop",
+      mainBranch: "Main Branch",
+      mallOutlet: "Mall Outlet",
+      subangPj: "Subang PJ",
+    },
+    stickyTrial: {
+      cta: "Start Free Trial",
+      footer: "14-day trial · No credit card",
     },
   },
   login: {
@@ -543,6 +657,7 @@ export const en: TranslationTree = {
   tasks: tasksEn,
   operationsCenter: operationsCenterEn,
   notifications: notificationsEn,
+  dailyReports: dailyReportsEn,
   permissions: permissionsEn,
   positions: positionsEn,
   employee: employeeEn,

@@ -80,16 +80,29 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Requested time cannot be in the future." }, { status: 400 });
     }
 
-    const { data: pending } = await supabase
+    const { data: pendingRows } = await supabase
       .from("forgot_punch_requests")
-      .select("id")
+      .select("id, requested_time")
       .eq("staff_id", staffRow.id)
       .eq("shop_id", shopId)
       .eq("request_type", requestType)
-      .eq("status", "pending")
-      .limit(1);
+      .eq("status", "pending");
 
-    if (pending && pending.length > 0) {
+    const sameDayPending = (pendingRows ?? []).find(
+      (r) => malaysiaDateYmd(new Date(String(r.requested_time))) === dayYmd,
+    );
+    if (sameDayPending) {
+      return NextResponse.json(
+        {
+          error: `You already have a pending ${forgotPunchTypeLabel(requestType)} request for this date.`,
+        },
+        { status: 409 },
+      );
+    }
+
+    // Also block a second pending request of the same type for this shop (any day)
+    // so the queue stays manageable — existing behaviour.
+    if ((pendingRows ?? []).length > 0) {
       return NextResponse.json(
         {
           error: `You already have a pending ${forgotPunchTypeLabel(requestType)} request for this shop.`,

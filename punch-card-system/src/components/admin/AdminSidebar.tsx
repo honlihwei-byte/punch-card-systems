@@ -8,9 +8,10 @@ import { useI18n } from "@/components/i18n/LanguageProvider";
 
 type NavItem = {
   labelKey: string;
-  href: string;
+  href?: string;
   icon: React.ReactNode;
   match: (path: string) => boolean;
+  children?: NavItem[];
 };
 
 function NavIcon({ children }: { children: React.ReactNode }) {
@@ -105,6 +106,31 @@ const NAV_ITEMS: NavItem[] = [
     ),
   },
   {
+    labelKey: "nav.notifications",
+    match: (p) => p.startsWith("/admin/notifications"),
+    icon: (
+      <NavIcon>
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} className="h-5 w-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+      </NavIcon>
+    ),
+    children: [
+      {
+        labelKey: "nav.dailyReports",
+        href: "/admin/notifications/daily-reports",
+        match: (p) => p.startsWith("/admin/notifications/daily-reports"),
+        icon: (
+          <NavIcon>
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} className="h-4 w-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </NavIcon>
+        ),
+      },
+    ],
+  },
+  {
     labelKey: "nav.settings",
     href: "/admin/profile",
     match: (p) => p.startsWith("/admin/profile") || p.startsWith("/admin/billing"),
@@ -191,10 +217,45 @@ export function AdminSidebar({ open, onClose, featureAccess = "full", company }:
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
         {items.map((item) => {
           const active = item.match(pathname);
+          const hasChildren = item.children && item.children.length > 0;
+
+          if (hasChildren) {
+            return (
+              <div key={item.labelKey} className="space-y-0.5">
+                <div
+                  className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium ${
+                    active ? "text-[#2563EB]" : "text-[#64748B]"
+                  }`}
+                >
+                  {item.icon}
+                  {t(item.labelKey)}
+                </div>
+                {item.children!.map((child) => {
+                  const childActive = child.match(pathname);
+                  return (
+                    <Link
+                      key={child.labelKey}
+                      href={child.href!}
+                      onClick={onClose}
+                      className={`ml-4 flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition ${
+                        childActive
+                          ? "bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white shadow-sm shadow-blue-500/20"
+                          : "text-[#64748B] hover:bg-slate-50 hover:text-[#0F172A]"
+                      }`}
+                    >
+                      {child.icon}
+                      {t(child.labelKey)}
+                    </Link>
+                  );
+                })}
+              </div>
+            );
+          }
+
           return (
             <Link
               key={item.labelKey}
-              href={item.href}
+              href={item.href!}
               onClick={onClose}
               className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
                 active

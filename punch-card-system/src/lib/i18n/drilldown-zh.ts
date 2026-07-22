@@ -25,6 +25,7 @@ export const drilldownZh = {
   highlights: "员工亮点",
   formula: "计算公式",
   periodDays: "基于最近 {days} 天的考勤与任务数据。",
+  gpsReliabilityNote: "除非经审核确认为滥用，否则 GPS 问题不计入可靠性评分。",
   shop: {
     best_performer: "最佳表现",
     most_improved: "进步最大",

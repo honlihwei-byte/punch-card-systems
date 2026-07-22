@@ -86,6 +86,7 @@ export const operationsCenterZh = {
     attachments: "附件",
     uploadFile: "上传文件",
     uploadHint: "PDF、JPG、PNG、DOCX、XLSX，最大 10MB。图片与 PDF 可在应用内预览。",
+    saveChanges: "保存更改",
     saveDraft: "保存草稿",
     publish: "发布",
     saving: "保存中…",

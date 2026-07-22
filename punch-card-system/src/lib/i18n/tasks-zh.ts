@@ -145,6 +145,9 @@ export const tasksZh = {
     weekly_recurring: "每周重复",
     series_generated: "系列自动生成",
   },
+  scheduler: {
+    note: "系统会在加载任务列表时以及每日 08:00 的定时任务（vercel.json → /api/cron/task-notifications）自动通过 tickTaskRecurrence 生成任务。已取消的系列与已排除的日期不会重新生成。",
+  },
   detail: {
     title: "任务详情",
     info: "任务信息",
@@ -180,6 +183,7 @@ export const tasksZh = {
     photoLoadFailed: "无法加载照片。",
     prevPhoto: "上一张",
     nextPhoto: "下一张",
+    photoCapturedAt: "拍摄时间",
   },
   templates: {
     dailyCleaning: "日常清洁",
@@ -246,6 +250,7 @@ export const tasksZh = {
       missing_submit_permission: "您没有提交任务的权限",
       shop_access_denied: "您无权访问此门店",
       admin_cannot_start: "管理员无法从此界面开始任务",
+      overdue_reason_required: "请填写逾期原因。",
       gps_required: "提交前需要 GPS 验证。",
     },
   },
